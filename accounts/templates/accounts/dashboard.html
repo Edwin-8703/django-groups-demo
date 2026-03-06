@@ -1,0 +1,11 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="card">
+  <h2>Dashboard</h2>
+  <p>Welcome <strong style="color:#00d4ff">{{ user.username }}</strong> — you are in the
+    <strong style="color:#ffb300">
+      {% for g in user.groups.all %}{{ g.name }}{% empty %}No group{% endfor %}
+    </strong> group.
+  </p>
+</div>
+{% endblock %}
