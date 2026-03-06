@@ -7,6 +7,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 ROOT_URLCONF = 'config.urls'
 
+CSRF_TRUSTED_ORIGINS = ['https://edwin-django-user-groups.up.railway.app']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
