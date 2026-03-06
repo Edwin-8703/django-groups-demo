@@ -1,20 +1,44 @@
-{% extends 'accounts/base.html' %}
-{% block content %}
-<div class="card">
-  <h2>Dashboard</h2>
-  <p>Welcome <strong style="color:#00d4ff">{{ user.username }}</strong> — you are in the
-    <strong style="color:#ffb300">
-      {% for g in user.groups.all %}{{ g.name }}{% empty %}No group{% endfor %}
-    </strong> group.
-  </p>
-  <p style="margin-top:12px">Try the pages below and see what you can access:</p>
-  <a class="btn" href="/reports/">Reports</a>
-  <a class="btn" href="/settings/">Settings</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Groups Demo</title>
+  <style>
+    body { font-family: monospace; background: #111; color: #eee; margin: 0; }
+    nav { background: #0d1117; border-bottom: 1px solid #222; padding: 12px 24px; display: flex; gap: 20px; align-items: center; }
+    nav a { color: #aaa; text-decoration: none; }
+    nav a:hover { color: #fff; }
+    .brand { color: #00ff88; font-weight: bold; margin-right: auto; }
+    .badge { background: #1a1a1a; color: #ffb300; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+    .wrap { max-width: 600px; margin: 40px auto; padding: 0 16px; }
+    .card { background: #0d1117; border: 1px solid #222; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    h2 { color: #00ff88; margin-bottom: 12px; }
+    p { color: #aaa; line-height: 1.7; }
+    a.btn { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 7px 14px; border: 1px solid #333; border-radius: 4px; color: #eee; text-decoration: none; font-size: 12px; }
+    a.btn:hover { border-color: #00ff88; color: #00ff88; }
+    .denied { border-color: #ff4444; color: #ff4444; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+<nav>
+  <span class="brand">GROUPS DEMO</span>
+  <a href="/dashboard/">Dashboard</a>
+  <a href="/reports/">Reports</a>
+  <a href="/settings/">Settings</a>
+  <a href="/admin/">Admin Panel</a>
+  <span class="badge">
+    {% for g in user.groups.all %}{{ g.name }}{% empty %}No group{% endfor %}
+  </span>
+  <span style="color:#556677;font-size:12px">{{ user.username }}</span>
+  <a href="/logout/" style="color:#ff4444">Logout</a>
+</nav>
+{% endif %}
+
+<div class="wrap">
+  {% block content %}{% endblock %}
 </div>
-<div class="card">
-  <h2>Access Rules</h2>
-  <p>Dashboard → everyone</p>
-  <p>Reports &nbsp; → Managers + Admins</p>
-  <p>Settings &nbsp;→ Admins only</p>
-</div>
-{% endblock %}
+
+</body>
+</html>
