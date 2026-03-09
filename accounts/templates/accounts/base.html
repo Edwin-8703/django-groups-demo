@@ -28,9 +28,6 @@
   <a href="/reports/">Reports</a>
   <a href="/settings/">Settings</a>
   <a href="/admin/">Admin Panel</a>
-  <span class="badge">
-    {% for g in user.groups.all %}{{ g.name }}{% empty %}No group{% endfor %}
-  </span>
   <span style="color:#556677;font-size:12px">{{ user.username }}</span>
   <a href="/logout/" style="color:#ff4444">Logout</a>
 </nav>
