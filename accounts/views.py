@@ -26,18 +26,13 @@ def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
 
-@group_required('Managers', 'Admins')
+@group_required('Admin', 'Information seeker', 'Information contributor')
 def reports(request):
-    # Only Managers and Admins can see this
+    # Only Admins, Information seekers and Information contributors can see this
     return render(request, 'accounts/reports.html')
 
 
-@group_required('Admins')
+@group_required('Admin', 'Service user', 'Service coordinator')
 def settings(request):
-    # Only Admins can see this
+    # Only Admins, Service users and Service coordinators can see this
     return render(request, 'accounts/settings.html')
-
-@group_required('New Employees')
-def new_employee_settings(request):
-    # Only New Employees can see this
-    return render(request, 'accounts/new_employee.html')
