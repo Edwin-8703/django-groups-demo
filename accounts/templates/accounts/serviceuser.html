@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service User Portal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      min-height: 100vh;
+      padding: 2.5rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      color: #6b7280;
+      background: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: #f3f4f6; color: #111827; }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-sub {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 220px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .card-icon { font-size: 2.2rem; }
+    .card-title { font-size: 1rem; font-weight: 700; color: #111827; }
+    .card-sub { font-size: 0.82rem; color: #6b7280; line-height: 1.6; }
+
+    .card-arrow {
+      margin-top: auto;
+      padding-top: 1rem;
+      font-size: 0.8rem;
+      color: #3b82f6;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+    <div class="page-title">Service User Portal</div>
+    <div class="page-sub">What would you like to do today?</div>
+
+    <div class="cards">
+
+      <a href="/leave-application/" class="card">
+        <div class="card-icon">🏖️</div>
+        <div class="card-title">Leave Application</div>
+        <div class="card-sub">Apply for leave and track the status of your requests</div>
+        <div class="card-arrow">Go →</div>
+      </a>
+
+      <a href="/service-request/" class="card">
+        <div class="card-icon">🛠️</div>
+        <div class="card-title">Service Request</div>
+        <div class="card-sub">File a service request and monitor its progress</div>
+        <div class="card-arrow">Go →</div>
+      </a>
+
+      <a href="/book-resource/" class="card">
+        <div class="card-icon">📅</div>
+        <div class="card-title">Book a Resource</div>
+        <div class="card-sub">Reserve a meeting room, vehicle or equipment</div>
+        <div class="card-arrow">Go →</div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>

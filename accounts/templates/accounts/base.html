@@ -5,37 +5,126 @@
   <title>Groups Demo</title>
   <style>
     body { font-family: monospace; background: #111; color: #eee; margin: 0; }
-    nav { background: #0d1117; border-bottom: 1px solid #222; padding: 12px 24px; display: flex; gap: 20px; align-items: center; }
-    nav a { color: #aaa; text-decoration: none; }
+    nav { background: #0d1117; border-bottom: 1px solid #222; padding: 25px 35px; display: flex; gap: 16px; align-items: center; }
+    nav a { color: #aaa; text-decoration: none; font-size: 14px; padding: 15px 25px; border-radius: 5px; transition: background 0.15s, color 0.15s; }
     nav a:hover { color: #fff; }
     .brand { color: #00ff88; font-weight: bold; margin-right: auto; }
     .badge { background: #1a1a1a; color: #ffb300; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-    .wrap { max-width: 600px; margin: 40px auto; padding: 0 16px; }
-    .card { background: #0d1117; border: 1px solid #222; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    .wrap { max-width: 100%; margin: 40px auto; padding: 0 16px; }
+    .card { background: #0d1117; border: 1px solid #222; border-radius: 8px; padding: 30px; margin-bottom: 16px; }
     h2 { color: #00ff88; margin-bottom: 12px; }
     p { color: #aaa; line-height: 1.7; }
     a.btn { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 7px 14px; border: 1px solid #333; border-radius: 4px; color: #eee; text-decoration: none; font-size: 12px; }
     a.btn:hover { border-color: #00ff88; color: #00ff88; }
     .denied { border-color: #ff4444; color: #ff4444; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; font-size: 13px; }
+
+    .profile-wrap { position: relative; margin-left: auto; }
+    .profile-btn { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 4px 10px; border-radius: 6px; transition: background 0.15s; }
+    .profile-btn:hover { background: #1a1a1a; }
+    .profile-avatar { width: 30px; height: 30px; border-radius: 50%; background: #00ff88; color: #111; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .profile-name { color: #aaa; font-size: 12px; }
+    .profile-arrow { color: #556677; font-size: 11px; }
+    .profile-dropdown { display: none; position: absolute; right: 0; top: calc(100% + 8px); background: #0d1117; border: 1px solid #222; border-radius: 8px; min-width: 200px; padding: 0.8rem; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .profile-dropdown.open { display: block; }
+    .dropdown-user { display: flex; align-items: center; gap: 0.6rem; padding-bottom: 0.6rem; }
+    .dropdown-avatar { width: 36px; height: 36px; border-radius: 50%; background: #00ff88; color: #111; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dropdown-name { color: #eee; font-size: 13px; font-weight: 600; }
+    .dropdown-role { color: #556677; font-size: 11px; margin-top: 2px; }
+    .dropdown-hr { border: none; border-top: 1px solid #222; margin: 0.5rem 0; }
+    .dropdown-item { display: block; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 12px; text-decoration: none; color: #aaa; transition: background 0.15s; }
+    .dropdown-item:hover { background: #1a1a1a; color: #fff; }
+    .logout { color: #ff4444 !important; }
+
+    .card-blue { background-color: #1a9fd4; color: #ffffff; }
+    .card-orange { background-color: #e8601c; color: #ffffff; }
+    .card-white { background-color: #ffffff; color: #111111; }
+    .card-blue h2, .card-blue p, .card-blue a,
+    .card-orange h2, .card-orange p, .card-orange a { color: #ffffff; }
+    .card-white h2, .card-white p, .card-white a { color: #111111; }
   </style>
 </head>
 <body>
 
 {% if user.is_authenticated %}
 <nav>
-  <span class="brand">USER GROUP DEMO</span>
+  <span class="brand">
+    <img src="https://scontent.fnbo8-1.fna.fbcdn.net/v/t39.30808-6/478941332_934283928893129_9016560088572979550_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=2a1932&_nc_ohc=pJJIusJ5CiwQ7kNvwFAE6Cj&_nc_oc=AdkH7Ww1IJsrGPkCj4ScYaVqaicC_Bh4BAqJGMNh1-SiEUK2SF_NuXV5bVkEDuJTU-U&_nc_zt=23&_nc_ht=scontent.fnbo8-1.fna&_nc_gid=ggB9tFKFaEZ72gKmrHShVQ&_nc_ss=8&oh=00_AfzrnwCGAONXoYtIdOVcL0bIcKnmmgk7XsAQcx6vHWUqIw&oe=69B5EE72"
+         alt="CEMA Logo"
+         style="height: 75px; width: 200px; vertical-align: middle; margin-right: 15px;">
+  </span>
+
   <a href="/dashboard/">Dashboard</a>
-  <a href="/reports/">Reports</a>
-  <a href="/settings/">Settings</a>
-  <a href="/admin/">Admin Panel</a>
-  <span style="color:#556677;font-size:12px">{{ user.username }}</span>
-  <a href="/logout/" style="color:#ff4444">Logout</a>
+
+  {% if user.is_superuser %}
+    <a href="/infoseeker/">Information Seeker</a>
+    <a href="/infocontributor/">Information Contributor</a>
+    <a href="/serviceuser/">Service User</a>
+    <a href="/servicecoor/">Service Coordinator</a>
+    <a href="/admin/">Admin</a>
+  {% else %}
+    {% for group in user.groups.all %}
+      {% if group.name == 'Admin' %}
+        <a href="/infoseeker/">Information Seeker</a>
+        <a href="/infocontributor/">Information Contributor</a>
+        <a href="/serviceuser/">Service User</a>
+        <a href="/servicecoor/">Service Coordinator</a>
+        <a href="/admin/">Admin</a>
+      {% endif %}
+      {% if group.name == 'Information seeker' %}
+        <a href="/infoseeker/">Information Seeker</a>
+      {% endif %}
+      {% if group.name == 'Information contributor' %}
+        <a href="/infocontributor/">Information Contributor</a>
+      {% endif %}
+      {% if group.name == 'Service user' %}
+        <a href="/serviceuser/">Service User</a>
+      {% endif %}
+      {% if group.name == 'Service coordinator' %}
+        <a href="/servicecoor/">Service Coordinator</a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <!-- Profile dropdown -->
+  <div class="profile-wrap">
+    <div class="profile-btn" onclick="toggleDropdown()">
+      <div class="profile-avatar">{{ user.username|first|upper }}</div>
+      <span class="profile-name">{{ user.username }}</span>
+      <span class="profile-arrow">▾</span>
+    </div>
+    <div class="profile-dropdown" id="profileDropdown">
+      <div class="dropdown-user">
+        <div class="dropdown-avatar">{{ user.username|first|upper }}</div>
+        <div>
+          <div class="dropdown-name">{{ user.username }}</div>
+          <div class="dropdown-role">
+            {% for group in user.groups.all %}{{ group.name }}{% endfor %}
+          </div>
+        </div>
+      </div>
+      <hr class="dropdown-hr">
+      <a href="/logout/" class="dropdown-item logout">⎋ Logout</a>
+    </div>
+  </div>
 </nav>
 {% endif %}
 
 <div class="wrap">
   {% block content %}{% endblock %}
 </div>
+
+{% block footer %}{% endblock %}
+
+<script>
+  function toggleDropdown() {
+    document.getElementById('profileDropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.profile-wrap')) {
+      document.getElementById('profileDropdown').classList.remove('open');
+    }
+  });
+</script>
 
 </body>
 </html>

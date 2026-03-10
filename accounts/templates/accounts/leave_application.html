@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Application</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; min-height: 100vh; padding: 2rem; }
+
+    .back-btn {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid #e5e7eb; color: #6b7280; background: #fff;
+      padding: 0.4rem 1rem; border-radius: 6px; font-weight: 600;
+      text-decoration: none; margin-bottom: 1.2rem; cursor: pointer;
+      font-size: 0.85rem; transition: background 0.15s;
+    }
+    .back-btn:hover { background: #f3f4f6; color: #111827; }
+
+    .page-wrap { display: flex; gap: 1.5rem; max-width: 1000px; margin: 0 auto; align-items: flex-start; }
+
+    .left-panel {
+      flex: 1; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 1.5rem;
+    }
+
+    .welcome-box {
+      background: #d1fae5; border: 2px solid #6ee7b7;
+      border-radius: 8px; padding: 1rem 1.2rem;
+      font-size: 1.2rem; font-weight: 700; color: #065f46;
+      margin-bottom: 1rem;
+    }
+
+    .leave-days { color: #dc2626; font-size: 0.85rem; margin-bottom: 1rem; }
+
+    .btn-row { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; }
+
+    .btn-apply {
+      padding: 0.45rem 1rem; border-radius: 6px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; border: 1.5px solid;
+      text-decoration: none; transition: opacity 0.15s;
+    }
+    .btn-apply:hover { opacity: 0.8; }
+    .btn-green { background: #fff; color: #16a34a; border-color: #16a34a; }
+    .btn-red   { background: #fff; color: #dc2626; border-color: #dc2626; }
+
+    .mini-table { width: 100%; border-collapse: collapse; }
+    .mini-table th, .mini-table td {
+      padding: 0.6rem 0.8rem; font-size: 0.82rem; color: #9ca3af;
+      border-bottom: 1px solid #e5e7eb; text-align: left;
+    }
+    .mini-table th { color: #6b7280; font-weight: 600; }
+
+    /* Form panel */
+    .form-panel {
+      flex: 1.2; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 1.5rem; display: none;
+    }
+    .form-panel.open { display: block; }
+
+    .form-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+    .form-title { font-weight: 700; font-size: 1rem; color: #111827; }
+    .form-note { color: #dc2626; font-size: 0.75rem; margin-bottom: 1.2rem; }
+
+    .form-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 120px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: #374151; }
+
+    select, input[type="date"], input[type="text"], textarea {
+      padding: 0.45rem 0.7rem; border: 1.5px solid #d1d5db;
+      border-radius: 6px; font-size: 0.85rem; color: #374151;
+      outline: none; transition: border 0.15s; font-family: inherit;
+    }
+    select:focus, input:focus, textarea:focus { border-color: #3b82f6; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .btn-submit {
+      background: #16a34a; color: #fff; border: none;
+      padding: 0.55rem 1.8rem; border-radius: 6px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; margin-top: 0.5rem;
+      transition: background 0.15s;
+    }
+    .btn-submit:hover { background: #15803d; }
+
+    .section-label { font-size: 0.85rem; color: #374151; margin-bottom: 0.4rem; font-weight: 500; }
+  </style>
+</head>
+<body>
+
+  <div style="max-width:1000px; margin: 0 auto;">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+  </div>
+
+  <div class="page-wrap">
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="welcome-box">Welcome Edwin</div>
+      <p style="font-size:0.9rem; color:#374151; margin-bottom:0.5rem;">My Leave Applications</p>
+      <p class="leave-days">You have 15 Annual leave days left</p>
+      <div class="btn-row">
+        <button class="btn-apply btn-green" onclick="document.getElementById('leaveForm').classList.add('open')">Apply for leave</button>
+        <a href="javascript:history.back()" class="btn-apply btn-red">Back</a>
+      </div>
+      <table class="mini-table">
+        <thead>
+          <tr><th>Leave Type</th><th>Reason</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&nbsp;</td><td></td><td></td></tr>
+          <tr><td>&nbsp;</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Form panel -->
+    <div class="form-panel" id="leaveForm">
+      <div class="form-header">
+        <div>
+          <div class="form-title">Leave application</div>
+          <div class="form-note">1. Note that once you submit your request, you will not be able to edit or revoke it</div>
+        </div>
+        <button class="btn-apply btn-red" onclick="document.getElementById('leaveForm').classList.remove('open')" style="white-space:nowrap">Back</button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Leave type</label>
+          <select>
+            <option value="">............</option>
+            <option>Annual Leave</option>
+            <option>Sick Leave</option>
+            <option>Maternity Leave</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Start date</label>
+          <input type="date" placeholder="Leave start date">
+        </div>
+        <div class="form-group">
+          <label>End date</label>
+          <input type="date" placeholder="Leave end date">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label><strong>Reason for leave request</strong></label>
+        <textarea placeholder="Reason for leave request"></textarea>
+      </div>
+
+      <button class="btn-submit">Submit</button>
+    </div>
+  </div>
+
+</body>
+</html>

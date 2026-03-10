@@ -26,13 +26,34 @@ def dashboard(request):
     return render(request, 'accounts/dashboard.html')
 
 
-@group_required('Admin', 'Information seeker', 'Information contributor')
-def reports(request):
-    # Only Admins, Information seekers and Information contributors can see this
-    return render(request, 'accounts/reports.html')
+@group_required('Admin', 'Information seeker')
+def infoseeker(request):
+    return render(request, 'accounts/infoseeker.html')
 
+@group_required('Admin', 'Information contributor')
+def infocontributor(request):
+    return render(request, 'accounts/infocontributor.html')
 
-@group_required('Admin', 'Service user', 'Service coordinator')
-def settings(request):
-    # Only Admins, Service users and Service coordinators can see this
-    return render(request, 'accounts/settings.html')
+@group_required('Admin', 'Service user')
+def serviceuser(request):
+    return render(request, 'accounts/serviceuser.html')
+
+@group_required('Admin', 'Service coordinator')
+def servicecoor(request):
+    return render(request, 'accounts/servicecoor.html')
+
+@group_required('Admin')
+def admin_panel(request):
+    return render(request, 'accounts/admin_panel.html')
+
+@group_required('Admin', 'Service user')
+def leave_application(request):
+    return render(request, 'accounts/leave_application.html')
+
+@group_required('Admin', 'Service user')
+def service_request(request):
+    return render(request, 'accounts/service_request.html')
+
+@group_required('Admin', 'Service user')
+def book_resource(request):
+    return render(request, 'accounts/book_resource.html')

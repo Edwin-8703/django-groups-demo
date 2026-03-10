@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Resource</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; min-height: 100vh; padding: 2rem; }
+
+    .back-btn {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid #e5e7eb; color: #6b7280; background: #fff;
+      padding: 0.4rem 1rem; border-radius: 6px; font-weight: 600;
+      text-decoration: none; margin-bottom: 1.2rem; cursor: pointer;
+      font-size: 0.85rem; transition: background 0.15s;
+    }
+    .back-btn:hover { background: #f3f4f6; color: #111827; }
+
+    .page-wrap { display: flex; gap: 1.5rem; max-width: 1000px; margin: 0 auto; align-items: flex-start; }
+
+    .left-panel {
+      flex: 1; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 1.5rem;
+    }
+
+    .welcome-box {
+      background: #d1fae5; border: 2px solid #6ee7b7;
+      border-radius: 8px; padding: 1rem 1.2rem;
+      font-size: 1.2rem; font-weight: 700; color: #065f46;
+      margin-bottom: 1rem;
+    }
+
+    .btn-row { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; margin-top: 0.8rem; }
+
+    .btn-action {
+      padding: 0.45rem 1rem; border-radius: 6px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; border: 1.5px solid;
+      text-decoration: none; transition: opacity 0.15s; background: #fff;
+    }
+    .btn-action:hover { opacity: 0.8; }
+    .btn-green { color: #16a34a; border-color: #16a34a; }
+    .btn-red   { color: #dc2626; border-color: #dc2626; }
+
+    .mini-table { width: 100%; border-collapse: collapse; }
+    .mini-table th, .mini-table td {
+      padding: 0.6rem 0.8rem; font-size: 0.82rem; color: #9ca3af;
+      border-bottom: 1px solid #e5e7eb; text-align: left;
+    }
+    .mini-table th { color: #6b7280; font-weight: 600; }
+
+    .form-panel {
+      flex: 1.4; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 1.5rem; display: none;
+    }
+    .form-panel.open { display: block; }
+
+    .form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+    .form-title { font-weight: 700; font-size: 1rem; color: #111827; }
+
+    .form-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; align-items: flex-end; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 110px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: #374151; }
+
+    select, input[type="date"], input[type="time"], input[type="text"], textarea {
+      padding: 0.45rem 0.7rem; border: 1.5px solid #d1d5db;
+      border-radius: 6px; font-size: 0.85rem; color: #374151;
+      outline: none; transition: border 0.15s; font-family: inherit;
+    }
+    select:focus, input:focus, textarea:focus { border-color: #3b82f6; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .btn-submit {
+      background: #16a34a; color: #fff; border: none;
+      padding: 0.55rem 1.8rem; border-radius: 6px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; margin-top: 0.5rem;
+      transition: background 0.15s;
+    }
+    .btn-submit:hover { background: #15803d; }
+  </style>
+</head>
+<body>
+
+  <div style="max-width:1000px; margin: 0 auto;">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+  </div>
+
+  <div class="page-wrap">
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="welcome-box">Welcome Edwin</div>
+      <p style="font-size:0.9rem; color:#374151; margin-bottom:0.3rem;">Book a resource</p>
+      <div class="btn-row">
+        <button class="btn-action btn-green" onclick="document.getElementById('bookForm').classList.add('open')">Book resource</button>
+        <a href="javascript:history.back()" class="btn-action btn-red">Back</a>
+      </div>
+      <table class="mini-table">
+        <thead>
+          <tr><th>Resource type</th><th>Reason</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&nbsp;</td><td></td><td></td></tr>
+          <tr><td>&nbsp;</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Form panel -->
+    <div class="form-panel" id="bookForm">
+      <div class="form-header">
+        <div class="form-title">Book resource</div>
+        <button class="btn-action btn-red" onclick="document.getElementById('bookForm').classList.remove('open')">Back</button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Resource type</label>
+          <select>
+            <option value="">............</option>
+            <option>Meeting Room</option>
+            <option>Vehicle</option>
+            <option>Equipment</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Resource name</label>
+          <select>
+            <option value="">............</option>
+            <option>Room A</option>
+            <option>Room B</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Booking date</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Start time</label>
+          <input type="time">
+        </div>
+        <div class="form-group">
+          <label>End time</label>
+          <input type="time">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label><strong>Reason for Booking the resource</strong></label>
+        <textarea placeholder="Reason for booking the resource"></textarea>
+      </div>
+
+      <button class="btn-submit">Submit</button>
+    </div>
+  </div>
+
+</body>
+</html>

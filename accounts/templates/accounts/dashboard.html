@@ -1,12 +1,222 @@
-{% extends 'accounts/base.html' %}
+{% extends "accounts/base.html" %}
 {% block content %}
-<div class="card">
-  <h2>Dashboard</h2>
-  <p>Welcome <strong style="color:#00d4ff">{{ user.username }}</strong> — you are in the
-    <strong style="color:#ffb300">
-      {% for g in user.groups.all %}{{ g.name }}{% empty %}No group{% endfor %}
-    </strong> group.
-  </p>
+
+<div class="dash">
+
+  <!-- Welcome Banner -->
+  <div class="welcome">
+    <div>
+      <div class="welcome-title">Welcome back, <span class="welcome-name">{{ user.username }}</span> 👋</div>
+      <div class="welcome-sub">Here's what's happening at CEMA Africa today.</div>
+    </div>
+    <div class="welcome-date" id="liveDate" style="color: #ffffff;"></div>
+  </div>
+
+  <!-- Focus Cards -->
+  <div class="cards">
+
+    <div class="card card-blue">
+      <div class="card-icon">🗂️</div>
+      <h3>Multidisciplinary Collaboration</h3>
+      <hr>
+      <p>Combining the speed and agility of the private sector with the rigor and astuteness of academia, CEMA brings together experts from epidemiology, infectious diseases, mathematics, statistics, and data science to tackle complex health challenges.</p>
+      <a href="#" class="card-link">Learn more →</a>
+    </div>
+
+    <div class="card card-white">
+      <div class="card-icon">📊</div>
+      <h3>Data-Driven Decision Making</h3>
+      <hr>
+      <p>CEMA's data analytics initiatives such as the Kenya Health Facilities Survey and Census and the Kenya Health Facilities Assessment are some of the useful inputs used to drive impactful research and health policy decisions.</p>
+      <a href="#" class="card-link">Learn more →</a>
+    </div>
+
+    <div class="card card-orange">
+      <div class="card-icon">⚙️</div>
+      <h3>Infectious Disease Focus</h3>
+      <hr>
+      <p>We employ epidemiological and modeling skills to understand the emergence, transmission, spread, and control of infectious diseases, mainly of zoonotic origin. Our research provides evidence that guides policies on prevention and control of these infectious diseases to improve public health.</p>
+      <a href="#" class="card-link">Learn more →</a>
+    </div>
+
+  </div>
+
+  <!-- Africa Data for Health -->
+  <div class="africa">
+    <h2>Africa Data for Health</h2>
+    <p class="africa-intro">Combining the speed and agility of the private sector with the rigor and astuteness of academia, CEMA aims at comprehensively addressing these "Africa Data for Health" focus areas:</p>
+    <div class="africa-cols">
+      <ol>
+        <li>Health Data infrastructure strengthening</li>
+        <li>Building of Data Collection Digital Tools</li>
+        <li>Data-driven decision-making and policy formulation</li>
+      </ol>
+      <ol start="4">
+        <li>Data wrangling and visualizations</li>
+        <li>Applied epidemiological and mathematical modelling analysis</li>
+        <li>Data literacy for healthcare professionals and policymakers</li>
+      </ol>
+    </div>
+  </div>
 
 </div>
+
+<style>
+  body { font-family: 'Segoe UI', sans-serif !important; background: #f3f4f6 !important; }
+  .wrap { max-width: 100% !important; padding: 0 !important; }
+  * { box-sizing: border-box; }
+
+  .dash { width: 100%; padding: 2rem; }
+
+  .welcome { display: flex; justify-content: space-between; align-items: center; background: #0d1117; border: 1px solid #222; border-radius: 12px; padding: 1.8rem 2rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+  .welcome-title { font-size: 1.4rem; font-weight: 700; color: #eee; }
+  .welcome-name { color: #00ff88; }
+  .welcome-sub { color: #556677; font-size: 0.88rem; margin-top: 0.3rem; }
+  .welcome-date { color: #556677; font-size: 0.85rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+  .card { border-radius: 12px; padding: 1.6rem; border: 2px dashed transparent; display: flex; flex-direction: column; gap: 0.7rem; }
+  .card-icon { font-size: 1.6rem; }
+  .card h3 { font-size: 1rem; font-weight: 800; }
+  .card hr { border: none; border-top: 1px dashed rgba(255,255,255,0.3); margin: 0; }
+  .card p { font-size: 0.85rem; line-height: 1.75; text-align: justify; flex: 1; }
+  .card-link { font-size: 0.85rem; font-weight: 700; text-decoration: none; margin-top: auto; }
+
+  .card-blue   { background: #2196f3; color: #fff; }
+  .card-blue .card-link { color: #fff; }
+  .card-white  { background: #fff; color: #111827; border-color: #d1d5db; }
+  .card-white hr { border-top: 1px dashed #d1d5db; }
+  .card-white .card-link { color: #111827; }
+  .card-orange { background: #f57c00; color: #fff; }
+  .card-orange .card-link { color: #fff; }
+
+  .africa { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 2rem; }
+  .africa h2 { color: #00897b; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .africa-intro { font-size: 0.9rem; color: #374151; line-height: 1.75; text-align: justify; margin-bottom: 1.4rem; }
+  .africa-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .africa-cols ol { padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.9rem; }
+  .africa-cols li { font-size: 0.88rem; color: #374151; line-height: 1.5; }
+
+  @media (max-width: 768px) {
+    .dash { padding: 1rem; }
+    .cards { grid-template-columns: 1fr; }
+    .africa-cols { grid-template-columns: 1fr; gap: 0.5rem; }
+    .welcome-title { font-size: 1.1rem; }
+  }
+</style>
+
+<script>
+  const d = new Date();
+  document.getElementById('liveDate').textContent = d.toLocaleDateString('en-GB', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+</script>
+
+{% endblock %}
+
+{% block footer %}
+<style>
+  .site-footer { background: #000; color: #ccc; padding: 60px 40px 0; font-family: sans-serif; margin-top: 60px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 48px; border-bottom: 1px solid #222; }
+  .footer-brand img { max-width: 180px; margin-bottom: 14px; display: block; }
+  .footer-brand-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .footer-tagline { font-size: 13px; color: #aaa; font-style: italic; margin-bottom: 20px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #aaa; text-decoration: none; font-size: 14px; transition: border-color 0.2s, color 0.2s; }
+  .footer-socials a:hover { border-color: #0e9de0; color: #0e9de0; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 16px; padding-left: 10px; border-left: 3px solid #0e9de0; }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { color: #aaa; text-decoration: none; font-size: 13px; }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 13px; color: #aaa; }
+  .footer-contact-item .icon { color: #0e9de0; flex-shrink: 0; margin-top: 1px; }
+  .footer-contact-item a { color: #aaa; text-decoration: none; }
+  .footer-contact-item a:hover { color: #fff; }
+  .footer-newsletter-label { font-size: 13px; color: #ccc; margin: 12px 0 8px; }
+  .footer-newsletter { display: flex; }
+  .footer-newsletter input { flex: 1; padding: 8px 12px; background: #0d1117; border: 1px solid #333; border-right: none; border-radius: 4px 0 0 4px; color: #eee; font-size: 12px; outline: none; }
+  .footer-newsletter button { padding: 8px 14px; background: #0e9de0; border: none; border-radius: 0 4px 4px 0; color: #fff; font-size: 12px; cursor: pointer; }
+  .footer-newsletter button:hover { background: #0b82bc; }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 0; }
+  .footer-bottom p { font-size: 12px; color: #555; margin: 4px 0; }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .site-footer { padding: 40px 20px 0; } }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+      <img src="https://cema-africa.uonbi.ac.ke/_next/image?url=%2Fimages%2Flogo.jpg&w=384&q=75" alt="CEMA Logo">
+      <div class="footer-brand-name">Center for Epidemiological<br>Modelling and Analysis</div>
+      <div class="footer-tagline">Improving Africa's Health through Data.</div>
+      <div class="footer-socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Twitter">𝕏</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="YouTube">▶</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">What We Do</a></li>
+        <li><a href="#">News and Stories</a></li>
+        <li><a href="#">Capacity Strengthening</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Publications</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="#">Clinical Research</a></li>
+        <li><a href="#">Epidemiology and Economics</a></li>
+      </ul>
+      <h4 style="margin-top: 28px;">Data Resources</h4>
+      <ul>
+        <li><a href="#">Data Warehouse</a></li>
+        <li><a href="#">Analytics Hub</a></li>
+        <li><a href="#">Data Catalogue</a></li>
+        <li><a href="#">Kenya Health Trends</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="footer-contact-item">
+        <span class="icon">●</span>
+        <span>Center for Epidemiological Modelling and Analysis, University of Nairobi, Kenya</span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">✉</span>
+        <a href="mailto:info@cema.africa">info@cema.africa</a>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">✆</span>
+        <a href="tel:+254204915060">(+254) 20 491 5060</a>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">🌐</span>
+        <a href="https://cema-africa.uonbi.ac.ke" target="_blank">https://cema-africa.uonbi.ac.ke</a>
+      </div>
+      <div class="footer-newsletter-label">Subscribe to our newsletter</div>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Your email">
+        <button type="button">Subscribe</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Center for Epidemiological Modelling and Analysis (CEMA) | The University of Nairobi. All rights reserved.</p>
+    <p>Improving Africa's Health through Data.</p>
+  </div>
+</footer>
 {% endblock %}
