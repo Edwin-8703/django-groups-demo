@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      min-height: 100vh;
+      padding: 2.5rem;
+    }
+
+    .table-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .create-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 2px solid #3b82f6;
+      color: #3b82f6;
+      background: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .create-btn:hover { background: #3b82f6; color: #fff; }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .doc-table th, .doc-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+    }
+
+    .doc-table th {
+      background: #f9fafb;
+      font-weight: 600;
+      color: #6b7280;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-table tbody tr:last-child td { border-bottom: none; }
+    .doc-table tbody tr:hover { background: #f9fafb; }
+
+    .action-cell { display: flex; gap: 0.4rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1.5px solid;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.8; }
+
+    .btn-details { color: #16a34a; border-color: #16a34a; background: #f0fdf4; }
+    .btn-edit    { color: #d97706; border-color: #d97706; background: #fffbeb; }
+    .btn-delete  { color: #dc2626; border-color: #dc2626; background: #fef2f2; }
+
+    .empty { text-align: center; color: #9ca3af; padding: 2rem; }
+  </style>
+</head>
+<body>
+
+  <div class="table-wrap">
+    <a href="#" class="create-btn">⬆ Create new</a>
+
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>eddy@cema.africa</td>
+          <td>Leave application</td>
+          <td>Guidelines</td>
+          <td>2026-02-27</td>
+          <td class="action-cell">
+            <a href="#" class="btn btn-details">📋 Details</a>
+            <a href="#" class="btn btn-edit">✏️ Edit</a>
+            <a href="#" class="btn btn-delete">✖ Delete</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td></td><td></td><td></td><td></td>
+          <td class="action-cell"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td></td><td></td><td></td><td></td>
+          <td class="action-cell"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
