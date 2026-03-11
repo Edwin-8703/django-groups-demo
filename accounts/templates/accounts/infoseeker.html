@@ -7,132 +7,204 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; min-height: 100vh; padding: 2.5rem; }
-    .table-wrap { max-width: 900px; margin: 0 auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.5rem; }
+
+    .outer { max-width: 900px; margin: 0 auto; }
+
     .back-btn { display: inline-flex; align-items: center; border: 1.5px solid #e5e7eb; color: #6b7280; background: #fff; padding: 0.5rem 1.2rem; border-radius: 8px; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; transition: background 0.15s, color 0.15s; }
     .back-btn:hover { background: #f3f4f6; color: #111827; }
-    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+
+    .table-wrap { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.5rem; }
+
+    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; gap: 0.8rem; flex-wrap: wrap; }
     .entries-wrap { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #374151; }
     .entries-wrap select { padding: 0.35rem 0.6rem; border: 1.5px solid #d1d5db; border-radius: 6px; font-size: 0.85rem; color: #374151; cursor: pointer; }
     .search-wrap { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #374151; }
     .search-wrap input { padding: 0.35rem 0.75rem; border: 1.5px solid #d1d5db; border-radius: 6px; font-size: 0.85rem; outline: none; transition: border 0.15s; }
     .search-wrap input:focus { border-color: #3b82f6; }
+
+    /* ── DESKTOP TABLE ── */
     .doc-table { width: 100%; border-collapse: collapse; }
     .doc-table th, .doc-table td { padding: 0.85rem 1rem; text-align: left; font-size: 0.9rem; border-bottom: 1px solid #e5e7eb; color: #374151; }
     .doc-table th { font-weight: 600; color: #6b7280; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #e5e7eb; }
     .doc-table tbody tr:last-child td { border-bottom: none; }
     .doc-table tbody tr:hover { background: #f9fafb; }
+
     .action-cell { display: flex; gap: 0.4rem; }
-    .btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 500; text-decoration: none; border: 1.5px solid; cursor: pointer; background: none; transition: opacity 0.15s; }
+    .btn { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 500; text-decoration: none; border: 1.5px solid; cursor: pointer; background: none; font-family: inherit; transition: opacity 0.15s; white-space: nowrap; }
     .btn:hover { opacity: 0.8; }
     .btn-view     { color: #d97706; border-color: #d97706; background: #fffbeb; }
     .btn-download { color: #3b82f6; border-color: #3b82f6; background: #eff6ff; }
-    .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; font-size: 0.85rem; color: #6b7280; }
-    .pagination { display: flex; gap: 0.25rem; align-items: center; }
+
+    /* Mobile label — hidden on desktop */
+    .mob-label { display: none; }
+
+    .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; font-size: 0.85rem; color: #6b7280; flex-wrap: wrap; gap: 0.8rem; }
+    .pagination { display: flex; gap: 0.25rem; align-items: center; flex-wrap: wrap; }
     .pagination a { padding: 0.25rem 0.55rem; border: 1px solid #e5e7eb; border-radius: 4px; text-decoration: none; color: #374151; font-size: 0.8rem; transition: background 0.15s; }
     .pagination a:hover { background: #f3f4f6; }
     .pagination a.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
 
-    /* MODAL */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    /* ── MODAL ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.open { display: flex; }
-    .modal { background: #fff; border-radius: 12px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.2s ease; }
+    .modal { background: #fff; border-radius: 12px; width: 100%; max-width: 700px; max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.2s ease; }
     @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.4rem; border-bottom: 1px solid #e5e7eb; }
     .modal-title { font-size: 1rem; font-weight: 700; color: #111827; }
     .modal-meta { font-size: 0.78rem; color: #6b7280; margin-top: 2px; }
-    .modal-close { background: none; border: none; font-size: 1.3rem; color: #6b7280; cursor: pointer; line-height: 1; padding: 0.2rem 0.4rem; border-radius: 4px; transition: background 0.15s; }
+    .modal-close { background: none; border: none; font-size: 1.3rem; color: #6b7280; cursor: pointer; padding: 0.2rem 0.4rem; border-radius: 4px; transition: background 0.15s; }
     .modal-close:hover { background: #f3f4f6; color: #111; }
     .modal-body { padding: 1.4rem; overflow-y: auto; flex: 1; color: #374151; font-size: 0.9rem; line-height: 1.7; }
-    .modal-footer { padding: 0.9rem 1.4rem; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 0.6rem; }
+    .modal-footer { padding: 0.9rem 1.4rem; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 0.6rem; flex-wrap: wrap; }
     .modal-footer .btn { font-size: 0.85rem; padding: 0.4rem 1rem; }
+
+    /* ── MOBILE: card layout ── */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .table-wrap { padding: 1rem; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-wrap { width: 100%; }
+      .search-wrap input { flex: 1; width: 100%; }
+
+      /* Hide table header */
+      .doc-table thead { display: none; }
+
+      /* Each row becomes a card */
+      .doc-table tbody tr {
+        display: block;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 0.8rem;
+        padding: 0.9rem 1rem;
+        background: #fff;
+      }
+      .doc-table tbody tr:last-child { margin-bottom: 0; }
+      .doc-table tbody tr:hover { background: #f9fafb; }
+
+      /* Each cell becomes a row inside the card */
+      .doc-table td {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.35rem 0;
+        border-bottom: none;
+        font-size: 0.88rem;
+      }
+
+      /* Show label before each value */
+      .mob-label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        min-width: 55px;
+        flex-shrink: 0;
+      }
+
+      /* Action cell takes full width */
+      .action-cell {
+        gap: 0.5rem;
+        margin-top: 0.4rem;
+        padding-top: 0.6rem;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .action-cell .btn { flex: 1; justify-content: center; }
+
+      .modal-header { padding: 0.9rem 1rem; }
+      .modal-body { padding: 1rem; }
+      .modal-footer { padding: 0.75rem 1rem; }
+    }
   </style>
 </head>
 <body>
 
-  <div style="max-width:900px; margin: 0 auto 1rem;">
+  <div class="outer">
     <a href="javascript:history.back()" class="back-btn">← Back</a>
-  </div>
 
-  <div class="table-wrap">
-    <div class="toolbar">
-      <div class="entries-wrap">
-        <select><option>10</option><option>25</option><option>50</option><option>100</option></select>
-        Entries per page
+    <div class="table-wrap">
+      <div class="toolbar">
+        <div class="entries-wrap">
+          <select><option>10</option><option>25</option><option>50</option><option>100</option></select>
+          Entries per page
+        </div>
+        <div class="search-wrap">
+          Search <input type="text" placeholder="">
+        </div>
       </div>
-      <div class="search-wrap">
-        Search <input type="text" placeholder="">
-      </div>
-    </div>
 
-    <table class="doc-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
 
-        {% for doc in documents %}
-        <tr>
-          <td>{{ doc.title }}</td>
-          <td>{{ doc.doc_type }}</td>
-          <td>{{ doc.date }}</td>
-          <td class="action-cell">
-            <button class="btn btn-view"
-              onclick="openModal(
-                '{{ doc.title|escapejs }}',
-                '{{ doc.doc_type|escapejs }} · {{ doc.date }}',
-                '{{ doc.content|escapejs }}',
-                '{{ doc.file.url }}'
-              )">
-              👁 View
-            </button>
-            <a href="{{ doc.file.url }}" download class="btn btn-download">⬇ Download</a>
-          </td>
-        </tr>
-        {% endfor %}
+          {% for doc in documents %}
+          <tr>
+            <td><span class="mob-label">Title</span>{{ doc.title }}</td>
+            <td><span class="mob-label">Type</span>{{ doc.doc_type }}</td>
+            <td><span class="mob-label">Date</span>{{ doc.date }}</td>
+            <td>
+              <div class="action-cell">
+                <button class="btn btn-view"
+                  onclick="openModal(
+                    '{{ doc.title|escapejs }}',
+                    '{{ doc.doc_type|escapejs }} · {{ doc.date }}',
+                    '{{ doc.content|escapejs }}',
+                    '{{ doc.file.url }}'
+                  )">👁 View</button>
+                <a href="{{ doc.file.url }}" download class="btn btn-download">⬇ Download</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
 
-        <!-- STATIC DEMO ROW (remove when using Django loop above) -->
-        <tr>
-          <td>Leave Application</td>
-          <td>Guidelines</td>
-          <td>2026-02-27</td>
-          <td class="action-cell">
-            <button class="btn btn-view"
-              onclick="openModal(
-                'Leave Application',
-                'Guidelines · 2026-02-27',
-                `<h3 style='margin-bottom:0.8rem;color:#111827'>Leave Application Guidelines</h3>
-                <p>This document outlines the procedure for applying for leave at CEMA Africa.</p><br>
-                <p><strong>1. Eligibility</strong><br>All permanent and contract staff are eligible to apply for leave after completing their probation period.</p><br>
-                <p><strong>2. How to Apply</strong><br>Submit your leave request at least 5 working days in advance via the HR portal.</p><br>
-                <p><strong>3. Approval Process</strong><br>Your line manager will review and approve or decline the request within 2 working days.</p><br>
-                <p><strong>4. Leave Types</strong><br>Annual leave, sick leave, maternity/paternity leave, and compassionate leave are covered under this policy.</p>`,
-                '/media/docs/leave-application.pdf'
-              )">
-              👁 View
-            </button>
-            <a href="/media/docs/leave-application.pdf" download class="btn btn-download">⬇ Download</a>
-          </td>
-        </tr>
+          <!-- STATIC DEMO ROW -->
+          <tr>
+            <td><span class="mob-label">Title</span>Leave Application</td>
+            <td><span class="mob-label">Type</span>Guidelines</td>
+            <td><span class="mob-label">Date</span>2026-02-27</td>
+            <td>
+              <div class="action-cell">
+                <button class="btn btn-view"
+                  onclick="openModal(
+                    'Leave Application',
+                    'Guidelines · 2026-02-27',
+                    `<h3 style='margin-bottom:0.8rem;color:#111827'>Leave Application Guidelines</h3>
+                    <p>This document outlines the procedure for applying for leave at CEMA Africa.</p><br>
+                    <p><strong>1. Eligibility</strong><br>All permanent and contract staff are eligible to apply for leave after completing their probation period.</p><br>
+                    <p><strong>2. How to Apply</strong><br>Submit your leave request at least 5 working days in advance via the HR portal.</p><br>
+                    <p><strong>3. Approval Process</strong><br>Your line manager will review and approve or decline the request within 2 working days.</p><br>
+                    <p><strong>4. Leave Types</strong><br>Annual leave, sick leave, maternity/paternity leave, and compassionate leave are covered under this policy.</p>`,
+                    '/media/docs/leave-application.pdf'
+                  )">👁 View</button>
+                <a href="/media/docs/leave-application.pdf" download class="btn btn-download">⬇ Download</a>
+              </div>
+            </td>
+          </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <div class="footer">
-      <span>Showing 1 to 10 of 50 entries</span>
-      <div class="pagination">
-        <a href="#">&lt;&lt;</a>
-        <a href="#">&lt;</a>
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">&gt;&gt;</a>
-        <a href="#">&gt;</a>
+      <div class="footer">
+        <span>Showing 1 to 10 of 50 entries</span>
+        <div class="pagination">
+          <a href="#">&lt;&lt;</a>
+          <a href="#">&lt;</a>
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">&gt;&gt;</a>
+          <a href="#">&gt;</a>
+        </div>
       </div>
     </div>
   </div>
@@ -160,25 +232,19 @@
       document.getElementById('modalTitle').textContent = title;
       document.getElementById('modalMeta').textContent = meta;
       document.getElementById('modalBody').innerHTML = bodyHtml;
-
-      // Set the same file URL for the modal download button
       const dlBtn = document.getElementById('modalDownload');
       dlBtn.href = fileUrl || '#';
       dlBtn.setAttribute('download', title || 'document');
-
       document.getElementById('docModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeModal() {
       document.getElementById('docModal').classList.remove('open');
       document.body.style.overflow = '';
     }
-
     function handleOverlayClick(e) {
       if (e.target === document.getElementById('docModal')) closeModal();
     }
-
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });

@@ -16,14 +16,16 @@
     .create-btn { display: inline-flex; align-items: center; gap: 0.4rem; border: 2px solid #3b82f6; color: #3b82f6; background: #fff; padding: 0.5rem 1.2rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 0.9rem; margin-bottom: 1.5rem; transition: background 0.15s, color 0.15s; }
     .create-btn:hover { background: #3b82f6; color: #fff; }
 
+    /* ── DESKTOP TABLE ── */
     .doc-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
     .doc-table th, .doc-table td { padding: 0.85rem 1rem; text-align: left; font-size: 0.9rem; border-bottom: 1px solid #e5e7eb; color: #374151; }
     .doc-table th { background: #f9fafb; font-weight: 600; color: #6b7280; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
     .doc-table tbody tr:last-child td { border-bottom: none; }
     .doc-table tbody tr:hover { background: #f9fafb; }
-    .action-cell { display: flex; gap: 0.4rem; }
 
-    .btn { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 500; text-decoration: none; border: 1.5px solid; cursor: pointer; background: none; font-family: inherit; transition: opacity 0.15s; }
+    .action-cell { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 500; text-decoration: none; border: 1.5px solid; cursor: pointer; background: none; font-family: inherit; transition: opacity 0.15s; white-space: nowrap; }
     .btn:hover { opacity: 0.8; }
     .btn-details { color: #16a34a; border-color: #16a34a; background: #f0fdf4; }
     .btn-edit    { color: #d97706; border-color: #d97706; background: #fffbeb; }
@@ -31,10 +33,13 @@
     .btn-save    { color: #fff;    border-color: #3b82f6; background: #3b82f6; }
     .btn-cancel  { color: #6b7280; border-color: #d1d5db; background: #fff; }
 
-    /* MODALS */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; align-items: center; justify-content: center; }
+    /* Mobile label — hidden on desktop */
+    .mob-label { display: none; }
+
+    /* ── MODALS ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.open { display: flex; }
-    .modal { background: #fff; border-radius: 12px; width: 90%; max-width: 520px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.2s ease; overflow: hidden; }
+    .modal { background: #fff; border-radius: 12px; width: 100%; max-width: 520px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.2s ease; overflow: hidden; }
     @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.4rem; border-bottom: 1px solid #e5e7eb; }
@@ -42,22 +47,19 @@
     .modal-close { background: none; border: none; font-size: 1.3rem; color: #6b7280; cursor: pointer; padding: 0.2rem 0.4rem; border-radius: 4px; transition: background 0.15s; }
     .modal-close:hover { background: #f3f4f6; color: #111; }
     .modal-body { padding: 1.4rem; overflow-y: auto; flex: 1; }
-    .modal-footer { padding: 0.9rem 1.4rem; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 0.6rem; }
+    .modal-footer { padding: 0.9rem 1.4rem; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 0.6rem; flex-wrap: wrap; }
     .modal-footer .btn { font-size: 0.85rem; padding: 0.45rem 1.1rem; }
 
-    /* Detail rows */
     .detail-row { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.9rem; }
     .detail-label { width: 80px; font-weight: 600; color: #6b7280; flex-shrink: 0; }
     .detail-value { color: #111827; line-height: 1.6; }
 
-    /* Form */
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: #374151; margin-bottom: 0.4rem; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.5rem 0.75rem; border: 1.5px solid #d1d5db; border-radius: 6px; font-size: 0.88rem; font-family: inherit; color: #111827; outline: none; transition: border 0.15s; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #3b82f6; }
     .form-group textarea { resize: vertical; min-height: 90px; }
 
-    /* Upload */
     .upload-area { border: 2px dashed #d1d5db; border-radius: 10px; padding: 2rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 0.5rem; }
     .upload-area:hover, .upload-area.dragover { border-color: #3b82f6; background: #eff6ff; }
     .upload-icon { font-size: 2.5rem; }
@@ -67,48 +69,104 @@
     .choose-file-btn:hover { background: #16a34a; color: #fff; }
     .file-chosen { font-size: 0.82rem; color: #3b82f6; margin-top: 0.6rem; font-weight: 500; min-height: 1.2em; }
 
-    /* Delete */
     .delete-msg { font-size: 0.95rem; color: #374151; line-height: 1.7; }
     .delete-msg strong { color: #dc2626; }
+
+    /* ── MOBILE CARD LAYOUT ── */
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+
+      /* Hide table header */
+      .doc-table thead { display: none; }
+
+      /* Table becomes a list of cards */
+      .doc-table, .doc-table tbody { display: block; background: transparent; border: none; }
+
+      .doc-table tbody tr {
+        display: block;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        margin-bottom: 0.9rem;
+        padding: 1rem;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      }
+      .doc-table tbody tr:last-child { margin-bottom: 0; }
+      .doc-table tbody tr:hover { background: #f9fafb; }
+
+      /* Each cell stacks as a labelled row */
+      .doc-table td {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.3rem 0;
+        border-bottom: none;
+        font-size: 0.88rem;
+      }
+
+      .mob-label {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        min-width: 52px;
+        padding-top: 2px;
+        flex-shrink: 0;
+      }
+
+      /* Action row — buttons fill width */
+      .action-cell {
+        margin-top: 0.6rem;
+        padding-top: 0.7rem;
+        border-top: 1px solid #f3f4f6;
+        gap: 0.4rem;
+      }
+      .action-cell .btn { flex: 1; justify-content: center; font-size: 0.78rem; }
+
+      .modal-header { padding: 0.9rem 1rem; }
+      .modal-body { padding: 1rem; }
+      .modal-footer { padding: 0.75rem 1rem; }
+    }
   </style>
 </head>
 <body>
 
 <div class="table-wrap">
   <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <button class="create-btn" onclick="openCreate()">⬆ Create new</button>
 
-  <div>
-    <button class="create-btn" onclick="openCreate()">⬆ Create new</button>
-
-    <table class="doc-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Email</th>
-          <th>Title</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="docTableBody">
-        <tr data-id="1" data-email="eddy@cema.africa" data-title="Leave application" data-type="Guidelines" data-date="2026-02-27" data-content="This document outlines the procedure for applying for leave at CEMA Africa. All staff must submit requests at least 5 working days in advance via the HR portal.">
-          <td>1</td>
-          <td>eddy@cema.africa</td>
-          <td>Leave application</td>
-          <td>Guidelines</td>
-          <td>2026-02-27</td>
-          <td class="action-cell">
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="docTableBody">
+      <tr data-id="1" data-email="eddy@cema.africa" data-title="Leave application" data-type="Guidelines" data-date="2026-02-27" data-content="This document outlines the procedure for applying for leave at CEMA Africa. All staff must submit requests at least 5 working days in advance via the HR portal.">
+        <td><span class="mob-label">ID</span>1</td>
+        <td><span class="mob-label">Email</span>eddy@cema.africa</td>
+        <td><span class="mob-label">Title</span>Leave application</td>
+        <td><span class="mob-label">Type</span>Guidelines</td>
+        <td><span class="mob-label">Date</span>2026-02-27</td>
+        <td>
+          <div class="action-cell">
             <button class="btn btn-details" onclick="openDetails(this)">📋 Details</button>
             <button class="btn btn-edit"    onclick="openEdit(this)">✏️ Edit</button>
             <button class="btn btn-delete"  onclick="openDelete(this)">✖ Delete</button>
-          </td>
-        </tr>
-        <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
-      </tbody>
-    </table>
-  </div>
+          </div>
+        </td>
+      </tr>
+      <tr><td><span class="mob-label">ID</span>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td><span class="mob-label">ID</span>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- CREATE MODAL -->
@@ -126,11 +184,7 @@
       <div class="form-group">
         <label>Type</label>
         <select id="createType">
-          <option>Guidelines</option>
-          <option>Policy</option>
-          <option>Report</option>
-          <option>Form</option>
-          <option>Other</option>
+          <option>Guidelines</option><option>Policy</option><option>Report</option><option>Form</option><option>Other</option>
         </select>
       </div>
       <div class="form-group">
@@ -170,7 +224,7 @@
       <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value" id="detailEmail"></span></div>
       <div class="detail-row" style="flex-direction:column;gap:0.4rem;">
         <span class="detail-label">Content</span>
-        <span class="detail-value" id="detailContent" style="color:#374151;"></span>
+        <span class="detail-value" id="detailContent"></span>
       </div>
     </div>
     <div class="modal-footer">
@@ -196,11 +250,7 @@
       <div class="form-group">
         <label>Type</label>
         <select id="editType">
-          <option>Guidelines</option>
-          <option>Policy</option>
-          <option>Report</option>
-          <option>Form</option>
-          <option>Other</option>
+          <option>Guidelines</option><option>Policy</option><option>Report</option><option>Form</option><option>Other</option>
         </select>
       </div>
       <div class="form-group">
@@ -239,7 +289,7 @@
 <script>
   let currentRow = null;
 
-  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function openModal(id)  { document.getElementById(id).classList.add('open');    document.body.style.overflow = 'hidden'; }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
   function closeOnOverlay(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
   document.addEventListener('keydown', e => {
@@ -269,11 +319,17 @@
     tr.dataset.id = newId; tr.dataset.email = ''; tr.dataset.title = title;
     tr.dataset.type = type; tr.dataset.date = today; tr.dataset.content = content;
     tr.innerHTML = `
-      <td>${newId}</td><td></td><td>${title}</td><td>${type}</td><td>${today}</td>
-      <td class="action-cell">
-        <button class="btn btn-details" onclick="openDetails(this)">📋 Details</button>
-        <button class="btn btn-edit"    onclick="openEdit(this)">✏️ Edit</button>
-        <button class="btn btn-delete"  onclick="openDelete(this)">✖ Delete</button>
+      <td><span class="mob-label">ID</span>${newId}</td>
+      <td><span class="mob-label">Email</span></td>
+      <td><span class="mob-label">Title</span>${title}</td>
+      <td><span class="mob-label">Type</span>${type}</td>
+      <td><span class="mob-label">Date</span>${today}</td>
+      <td>
+        <div class="action-cell">
+          <button class="btn btn-details" onclick="openDetails(this)">📋 Details</button>
+          <button class="btn btn-edit"    onclick="openEdit(this)">✏️ Edit</button>
+          <button class="btn btn-delete"  onclick="openDelete(this)">✖ Delete</button>
+        </div>
       </td>`;
     const emptyRow = tbody.querySelector('tr:not([data-id])');
     emptyRow ? tbody.insertBefore(tr, emptyRow) : tbody.appendChild(tr);
@@ -322,7 +378,7 @@
   }
 
   function saveEdit() {
-    const title   = document.getElementById('editTitle').value.trim();
+    const title = document.getElementById('editTitle').value.trim();
     if (!title) { alert('Title is required.'); return; }
     const type    = document.getElementById('editType').value;
     const date    = document.getElementById('editDate').value;
@@ -334,9 +390,10 @@
     currentRow.dataset.content = content;
 
     const cells = currentRow.querySelectorAll('td');
-    cells[2].textContent = title;
-    cells[3].textContent = type;
-    cells[4].textContent = date;
+    // Update the text after the mob-label span in each cell
+    cells[2].childNodes[1].textContent = title;
+    cells[3].childNodes[1].textContent = type;
+    cells[4].childNodes[1].textContent = date;
     closeModal('editModal');
   }
 
@@ -357,8 +414,8 @@
     const f = e.target.files[0];
     if (f) document.getElementById('fileChosen').textContent = '📄 ' + f.name;
   }
-  function handleDragOver(e) { e.preventDefault(); document.getElementById('uploadArea').classList.add('dragover'); }
-  function handleDragLeave() { document.getElementById('uploadArea').classList.remove('dragover'); }
+  function handleDragOver(e)  { e.preventDefault(); document.getElementById('uploadArea').classList.add('dragover'); }
+  function handleDragLeave()  { document.getElementById('uploadArea').classList.remove('dragover'); }
   function handleDrop(e) {
     e.preventDefault();
     document.getElementById('uploadArea').classList.remove('dragover');
