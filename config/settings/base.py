@@ -24,7 +24,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
-
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',
+]
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [BASE_DIR / 'accounts' / 'templates'],
